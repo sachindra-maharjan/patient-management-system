@@ -1,0 +1,334 @@
+openapi: 3.0.3
+info:
+  title: Patient Service API
+  version: 1.0.0
+  description: CRUD operations for managing patients
+servers:
+  - url: /api/v1
+
+paths:
+  /patients:
+    post:
+      summary: Create a new patient
+      operationId: createPatient
+      tags:
+        - Patients
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientCreateRequest'
+      responses:
+        '201':
+          description: Patient created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientResponseWrapper'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '409':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      summary: Get list of patients
+      operationId: getPatients
+      tags:
+        - Patients
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of patients
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPatientListResponse'
+        '500':
+          $ref: '#/components/responses/ValidationError'
+
+  /patients/{id}:
+    get:
+      summary: Get a patient by ID
+      operationId: getPatientById
+      tags:
+        - Patients
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Patient found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientResponseWrapper'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ValidationError'
+    put:
+      summary: Update an existing patient
+      operationId: updatePatient
+      tags:
+        - Patients
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientCreateRequest'
+      responses:
+        '200':
+          description: Patient updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientResponseWrapper'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      summary: Delete a patient
+      operationId: deletePatient
+      tags:
+        - Patients
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: No content (deleted)
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ValidationError'
+
+components:
+  schemas:
+    PatientCreateRequest:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - dob
+        - email
+        - phoneNumber
+        - gender
+      properties:
+        firstName:
+          type: string
+          minLength: 1
+          maxLength: 50
+          example: "John"
+        lastName:
+          type: string
+          minLength: 1
+          maxLength: 50
+          example: "Doe"
+        dob:
+          type: string
+          format: date
+          example: "1990-05-15"
+        email:
+          type: string
+          format: email
+          maxLength: 100
+          example: "john.doe@email.com"
+        phoneNumber:
+          type: string
+          maxLength: 20
+          example: "555-0101"
+        gender:
+          type: string
+          enum: [MALE, FEMALE, OTHER]
+          example: "MALE"
+        address:
+          $ref: '#/components/schemas/Address'
+        insurance:
+          $ref: '#/components/schemas/Insurance'
+
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+          maxLength: 100
+          example: "123 Main St"
+        city:
+          type: string
+          maxLength: 50
+          example: "New York"
+        state:
+          type: string
+          maxLength: 50
+          example: "NY"
+        zipCode:
+          type: string
+          maxLength: 20
+          example: "10001"
+        country:
+          type: string
+          maxLength: 50
+          example: "USA"
+
+    Insurance:
+      type: object
+      properties:
+        provider:
+          type: string
+          maxLength: 100
+          example: "Blue Cross"
+        policyNumber:
+          type: string
+          maxLength: 50
+          example: "BC123456789"
+
+    Patient:
+      allOf:
+        - $ref: '#/components/schemas/PatientCreateRequest'
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              example: "550e8400-e29b-41d4-a716-446655440001"
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+
+    PatientResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Patient'
+        status:
+          type: string
+          example: success
+        timestamp:
+          type: string
+          format: date-time
+
+    PaginatedPatientListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Patient'
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              example: 1
+            size:
+              type: integer
+              example: 10
+            totalPages:
+              type: integer
+              example: 5
+            totalItems:
+              type: integer
+              example: 50
+        status:
+          type: string
+          example: success
+        timestamp:
+          type: string
+          format: date-time
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: VALIDATION_ERROR
+            message:
+              type: string
+            path:
+              type: string
+            timestamp:
+              type: string
+              format: date-time
+        status:
+          type: string
+          example: error
+
+    ValidationErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: VALIDATION_ERROR
+            message:
+              type: string
+            path:
+              type: string
+            timestamp:
+              type: string
+              format: date-time
+            fieldErrors:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                  message:
+                    type: string
+        status:
+          type: string
+          example: error
+
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ValidationError:
+      description: Validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
