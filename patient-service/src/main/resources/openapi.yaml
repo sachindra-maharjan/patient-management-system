@@ -38,6 +38,10 @@ paths:
       tags:
         - Patients
       parameters:
+        - name: name 
+          in: query
+          schema:
+            type: string
         - name: page
           in: query
           schema:
@@ -215,7 +219,6 @@ components:
 
     Patient:
       allOf:
-        - $ref: '#/components/schemas/PatientCreateRequest'
         - type: object
           properties:
             id:
@@ -224,31 +227,34 @@ components:
               example: "550e8400-e29b-41d4-a716-446655440001"
             createdAt:
               type: string
-              format: date-time
             updatedAt:
               type: string
-              format: date-time
+        - $ref: '#/components/schemas/PatientCreateRequest'
 
     PatientResponseWrapper:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/Patient'
         status:
           type: string
           example: success
         timestamp:
           type: string
-          format: date-time
-
+        data:
+          $ref: '#/components/schemas/Patient'
+        
     PaginatedPatientListResponse:
       type: object
       properties:
+        status:
+          type: string
+          example: success
+        timestamp:
+          type: string
         data:
           type: array
           items:
             $ref: '#/components/schemas/Patient'
-        pagination:
+        meta:
           type: object
           properties:
             page:
@@ -263,36 +269,14 @@ components:
             totalItems:
               type: integer
               example: 50
-        status:
-          type: string
-          example: success
-        timestamp:
-          type: string
-          format: date-time
+        
 
     ErrorResponse:
       type: object
       properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-              example: VALIDATION_ERROR
-            message:
-              type: string
-            path:
-              type: string
-            timestamp:
-              type: string
-              format: date-time
         status:
           type: string
           example: error
-
-    ValidationErrorResponse:
-      type: object
-      properties:
         error:
           type: object
           properties:
@@ -305,7 +289,25 @@ components:
               type: string
             timestamp:
               type: string
-              format: date-time
+        
+    ValidationErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: VALIDATION_ERROR
+            message:
+              type: string
+            path:
+              type: string
+            timestamp:
+              type: string
             fieldErrors:
               type: array
               items:
@@ -315,10 +317,7 @@ components:
                     type: string
                   message:
                     type: string
-        status:
-          type: string
-          example: error
-
+        
   responses:
     NotFound:
       description: Resource not found

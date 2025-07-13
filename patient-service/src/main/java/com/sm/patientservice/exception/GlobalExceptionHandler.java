@@ -1,6 +1,6 @@
 package com.sm.patientservice.exception;
 
-import java.time.OffsetDateTime;
+import java.util.function.Consumer;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
@@ -8,13 +8,25 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.sm.patientservice.constant.ResponseConstant;
 import com.sm.patientservice.model.dto.ValidationErrorResponse;
 import com.sm.patientservice.model.dto.ValidationErrorResponseError;
 import com.sm.patientservice.model.dto.ValidationErrorResponseErrorFieldErrorsInner;
+import com.sm.patientservice.utils.AppUtils;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
     
+    private ResponseEntity<ValidationErrorResponse> buildErrorResponse(Consumer<ValidationErrorResponseError> errorCustomizer, int status) {
+        ValidationErrorResponse response = new ValidationErrorResponse();
+        ValidationErrorResponseError error = new ValidationErrorResponseError();
+        errorCustomizer.accept(error);
+        error.setTimestamp(AppUtils.getCurrentTimestamp());
+        response.setStatus(ResponseConstant.ERROR_STATUS);
+        response.setError(error);
+        return ResponseEntity.status(status).body(response);
+    }
+
     /**
      * Handles MethodArgumentNotValidException which is thrown when validation on an argument annotated with
      * @Valid fails.
@@ -24,22 +36,16 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationErrorResponse> handleValidationException(MethodArgumentNotValidException ex) {
-        ValidationErrorResponse response = new ValidationErrorResponse();
-        ValidationErrorResponseError error = new ValidationErrorResponseError();
-        
-        ex.getBindingResult().getFieldErrors().forEach(fieldError -> {
-            ValidationErrorResponseErrorFieldErrorsInner fieldErrorDto = new ValidationErrorResponseErrorFieldErrorsInner();
-            fieldErrorDto.setField(fieldError.getField());
-            fieldErrorDto.setMessage(fieldError.getDefaultMessage());
-            error.addFieldErrorsItem(fieldErrorDto);
-        });
-
-        error.setMessage("Validation failed for one or more fields.");
-        error.setCode("VALIDATION_ERROR");
-        error.setTimestamp(OffsetDateTime.now());
-        response.setStatus("error");
-        response.setError(error);
-        return ResponseEntity.badRequest().body(response);
+        return buildErrorResponse(error -> {
+            ex.getBindingResult().getFieldErrors().forEach(fieldError -> {
+                ValidationErrorResponseErrorFieldErrorsInner fieldErrorDto = new ValidationErrorResponseErrorFieldErrorsInner();
+                fieldErrorDto.setField(fieldError.getField());
+                fieldErrorDto.setMessage(fieldError.getDefaultMessage());
+                error.addFieldErrorsItem(fieldErrorDto);
+            });
+            error.setMessage("Validation failed for one or more fields.");
+            error.setCode("VALIDATION_ERROR");
+        }, 400);
     }
 
     /**
@@ -50,21 +56,28 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(EmailAlreadyExistException.class)
     public ResponseEntity<ValidationErrorResponse> handleEmailAlreadyExistException(EmailAlreadyExistException ex) {
-        ValidationErrorResponse response = new ValidationErrorResponse();
-        ValidationErrorResponseError error = new ValidationErrorResponseError();
-
-        ValidationErrorResponseErrorFieldErrorsInner fieldErrorDto = new ValidationErrorResponseErrorFieldErrorsInner();
-        fieldErrorDto.setField("email");
-        fieldErrorDto.setMessage(ex.getMessage());
-        error.addFieldErrorsItem(fieldErrorDto);
-        
-        error.setMessage("Email already exists.");
-        error.setCode("EMAIL_ALREADY_EXISTS");
-        error.setTimestamp(OffsetDateTime.now());
-        response.setStatus("error");
-        response.setError(error);
-
-        return ResponseEntity.badRequest().body(response);
+        return buildErrorResponse(error -> {
+            ValidationErrorResponseErrorFieldErrorsInner fieldErrorDto = new ValidationErrorResponseErrorFieldErrorsInner();
+            fieldErrorDto.setField("email");
+            fieldErrorDto.setMessage(ex.getMessage());
+            error.addFieldErrorsItem(fieldErrorDto);
+            error.setMessage("Email already exists.");
+            error.setCode("EMAIL_ALREADY_EXISTS");
+        }, 400);
+    }
+    
+    /**
+     * Handles PatientNotExistException which is thrown when a patient with the specified ID does not exist.
+     *
+     * @param ex the PatientNotExistException
+     * @return a ResponseEntity containing a ValidationErrorResponse with details of the error
+     */
+    @ExceptionHandler(PatientNotExistException.class)
+    public ResponseEntity<ValidationErrorResponse> handlePatientNotExistException(PatientNotExistException ex) {
+        return buildErrorResponse(error -> {
+            error.setMessage(ex.getMessage());
+            error.setCode("PATIENT_NOT_FOUND");
+        }, 404);
     }
 
     /**
@@ -75,16 +88,10 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
     public ResponseEntity<ValidationErrorResponse> handleOptimisticLockingFailureException(ObjectOptimisticLockingFailureException ex) {
-        ValidationErrorResponse response = new ValidationErrorResponse();
-        ValidationErrorResponseError error = new ValidationErrorResponseError();
-        
-        error.setMessage("The patient data has been modified by another operation. Please refresh and try again.");
-        error.setCode("OPTIMISTIC_LOCKING_FAILURE");
-        error.setTimestamp(OffsetDateTime.now());
-        response.setStatus("error");
-        response.setError(error);
-
-        return ResponseEntity.status(409).body(response);
+        return buildErrorResponse(error -> {
+            error.setMessage("The patient data has been modified by another operation. Please refresh and try again.");
+            error.setCode("OPTIMISTIC_LOCKING_FAILURE");
+        }, 409);
     }
 
     /**
@@ -95,15 +102,9 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ValidationErrorResponse> handleGenericException(Exception ex) {
-        ValidationErrorResponse response = new ValidationErrorResponse();
-        ValidationErrorResponseError error = new ValidationErrorResponseError();
-        
-        error.setMessage("An unexpected error occurred. Please try again later.");
-        error.setCode("INTERNAL_SERVER_ERROR");
-        error.setTimestamp(OffsetDateTime.now());
-        response.setStatus("error");
-        response.setError(error);
-
-        return ResponseEntity.status(500).body(response);
+        return buildErrorResponse(error -> {
+            error.setMessage("An unexpected error occurred. Please try again later.");
+            error.setCode("INTERNAL_SERVER_ERROR");
+        }, 500);
     }
 }       

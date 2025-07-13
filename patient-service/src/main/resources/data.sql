@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS patient (
 
 CREATE INDEX idx_patient_email ON patient(email);
 -- CREATE INDEX idx_patient_phone_number ON patient(phone_number);
--- CREATE INDEX idx_patient_policy_number ON patient(policy_number);
+CREATE INDEX idx_patient_name ON patient(first_name, last_name);
 
 -- Patient INSERT statements with UUID values
 INSERT INTO patient (id, first_name, last_name, dob, email, phone_number, gender,

@@ -1,10 +1,10 @@
 package com.sm.patientservice.mapper;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 import com.sm.patientservice.model.dto.Patient;
 import com.sm.patientservice.model.dto.PatientCreateRequest;
+import com.sm.patientservice.utils.AppUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,8 +25,8 @@ public class PatientMapper {
         dto.setGender(null == patient.getGender() ? null : Patient.GenderEnum.valueOf(patient.getGender()));
         dto.setAddress(null == patient.getAddress() ? null : AddressMapper.toDto(patient.getAddress()));
         dto.setInsurance(null == patient.getInsurance() ? null : com.sm.patientservice.mapper.InsuranceMapper.toDto(patient.getInsurance()));
-        dto.setCreatedAt(patient.getCreatedAt().atOffset(ZoneOffset.UTC));
-        dto.setUpdatedAt(patient.getUpdatedAt().atOffset(ZoneOffset.UTC));
+        dto.setCreatedAt(AppUtils.convertLocalDateTimeToString(patient.getCreatedAt()));
+        dto.setUpdatedAt(AppUtils.convertLocalDateTimeToString(patient.getUpdatedAt()));
         return dto;
     }
 

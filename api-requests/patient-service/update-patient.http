@@ -1,16 +1,16 @@
 // Create a new patient
-POST http://localhost:4000/patients
+PUT http://localhost:4000/patients/09c20ec6-5db7-4173-b1ad-15cac92b03b9
 Content-Type: application/json
 
 {
-  "firstName": "Wayne",
-  "lastName": "Rooney",
+  "firstName": "Waynew",
+  "lastName": "Rooney1",
   "dob": "1991-01-15",
-  "email": "wayne.rooney@email.com",
-  "phoneNumber": "555-0101",
+  "email": "john.doe@email.com",
+  "phoneNumber": "555-01011",
   "gender": "MALE",
   "address": {
-    "street": "123 Main St",
+    "street": "123 Main Street",
     "city": "New York",
     "state": "NY",
     "zipCode": "10001",
