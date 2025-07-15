@@ -14,12 +14,15 @@ services:
       SPRING_DATASOURCE_USERNAME: admin_user
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      BILLING_SERVICE_HOST: billing-service
+      BILLING_SERVICE_PORT: 9000
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
       - internal
     depends_on:
       - patient-service-db
+      - billing-service
 
   patient-service-db:
     container_name: postgres
@@ -33,6 +36,15 @@ services:
     networks:
       - internal
 
+  billing-service:
+    image: billing-service:latest
+    container_name: billing-service
+    ports:
+      - "4001:4001"
+      - "9000:9000"
+    networks:
+      - internal
+  
 networks:
   internal:
     driver: bridge

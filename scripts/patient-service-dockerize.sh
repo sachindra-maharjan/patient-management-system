@@ -12,6 +12,7 @@ elif [ -z "$(docker images -q patient-service:latest)" ]; then
     echo "Patient service Docker image is empty."
     exit 1
 else
-    echo "Patient service Docker image built successfully."
-    docker-compose -f $WORKDIR/docker-compose.yaml up -d
+    echo "Patient service Docker image built successfully."  
 fi
+
+#docker-compose -f $WORKDIR/docker-compose.yaml up -d

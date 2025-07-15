@@ -1,0 +1,13 @@
+proto < ../../billing-service/src/main/proto/billing_service.proto
+@host=localhost:9000
+
+###
+
+GRPC /BillingService/createBillingAccount
+{
+    "id": "12345",
+    "name": "John Doe",
+    "email": "john.doe@gmail.com",
+    "address": "123 Main St, Springfield, USA",
+    "phone": "+1234567890"
+}

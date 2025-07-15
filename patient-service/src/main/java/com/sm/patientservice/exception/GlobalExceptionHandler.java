@@ -94,6 +94,14 @@ public class GlobalExceptionHandler {
         }, 409);
     }
 
+    @ExceptionHandler(BillingException.class)
+    public ResponseEntity<ValidationErrorResponse> handleBillingException(BillingException ex) {
+        return buildErrorResponse(error -> {
+            error.setMessage(ex.getMessage());
+            error.setCode("BILLING_ERROR");
+        }, 500);
+    }
+
     /**
      * Handles any other exceptions that are not specifically handled.
      *

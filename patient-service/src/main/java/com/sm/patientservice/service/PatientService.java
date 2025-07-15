@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sm.patientservice.constant.ResponseConstant;
+import com.sm.patientservice.exception.BillingException;
 import com.sm.patientservice.exception.EmailAlreadyExistException;
 import com.sm.patientservice.exception.PatientNotExistException;
+import com.sm.patientservice.grpc.BillingServiceGrpcClient;
 import com.sm.patientservice.mapper.AddressMapper;
 import com.sm.patientservice.mapper.InsuranceMapper;
 import com.sm.patientservice.mapper.PatientMapper;
@@ -28,10 +30,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PatientService {
 
-    private PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
+    private final BillingServiceGrpcClient billingServiceGrpcClient;
     
-    public PatientService(PatientRepository patientRepository) {
+    public PatientService(PatientRepository patientRepository, 
+                          BillingServiceGrpcClient billingServiceGrpcClient) {
         this.patientRepository = patientRepository;
+        this.billingServiceGrpcClient = billingServiceGrpcClient;
     }
 
     public static class PatientPage {
@@ -50,6 +55,13 @@ public class PatientService {
         }
         
         var newPatient = patientRepository.save(PatientMapper.toEntity(newPatientRequest));
+        var billingResponse = billingServiceGrpcClient.createBillingAccount(newPatient);
+
+        if (!billingResponse.getStatus().equals("SUCCESS")) {
+            log.error("Failed to create billing account for patient: {}", newPatient.getId());
+            throw new BillingException("Failed to create billing account for patient: " + newPatient.getId());
+        }
+
         return PatientMapper.toDto(newPatient);
     }
 
