@@ -1,27 +1,3 @@
-CREATE TABLE IF NOT EXISTS patient (
-    id UUID PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    dob DATE NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    phone_number VARCHAR(20) NOT NULL,
-    gender VARCHAR(10) NOT NULL,
-    street VARCHAR(100) NOT NULL,
-    city VARCHAR(50) NOT NULL,
-    state VARCHAR(50) NOT NULL,
-    zip_code VARCHAR(20) NOT NULL,
-    country VARCHAR(50) NOT NULL,
-    provider VARCHAR(100) NOT NULL,
-    policy_number VARCHAR(50) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    version BIGINT DEFAULT 0
-);
-
-CREATE INDEX idx_patient_email ON patient(email);
--- CREATE INDEX idx_patient_phone_number ON patient(phone_number);
-CREATE INDEX idx_patient_name ON patient(first_name, last_name);
-
 -- Patient INSERT statements with UUID values
 INSERT INTO patient (id, first_name, last_name, dob, email, phone_number, gender,
                     street, city, state, zip_code, country,

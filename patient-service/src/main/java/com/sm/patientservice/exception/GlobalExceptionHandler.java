@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
             error.addFieldErrorsItem(fieldErrorDto);
             error.setMessage("Email already exists.");
             error.setCode("EMAIL_ALREADY_EXISTS");
-        }, 400);
+        }, 409);
     }
     
     /**
