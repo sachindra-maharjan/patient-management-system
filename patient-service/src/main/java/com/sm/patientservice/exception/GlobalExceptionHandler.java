@@ -14,7 +14,10 @@ import com.sm.patientservice.model.dto.ValidationErrorResponseError;
 import com.sm.patientservice.model.dto.ValidationErrorResponseErrorFieldErrorsInner;
 import com.sm.patientservice.utils.AppUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
     
     private ResponseEntity<ValidationErrorResponse> buildErrorResponse(Consumer<ValidationErrorResponseError> errorCustomizer, int status) {
@@ -110,6 +113,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ValidationErrorResponse> handleGenericException(Exception ex) {
+        log.error(ex.getMessage(), ex);
         return buildErrorResponse(error -> {
             error.setMessage("An unexpected error occurred. Please try again later.");
             error.setCode("INTERNAL_SERVER_ERROR");

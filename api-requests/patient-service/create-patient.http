@@ -6,7 +6,7 @@ Content-Type: application/json
   "firstName": "Wayne",
   "lastName": "Rooney",
   "dob": "1991-01-15",
-  "email": "wayne.rooney@email.com",
+  "email": "wayne.rooneyForKafka5@email.com",
   "phoneNumber": "555-0101",
   "gender": "MALE",
   "address": {
@@ -21,3 +21,10 @@ Content-Type: application/json
     "policyNumber": "RRV2222244"
   }
 }
+
+HTTP/1.1 200  - OK
+content-type: application/json
+transfer-encoding: chunked
+date: Wed, 16 Jul 2025 15:25:31 GMT
+connection: close
+###

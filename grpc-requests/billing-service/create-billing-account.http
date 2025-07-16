@@ -1,6 +1,5 @@
 proto < ../../billing-service/src/main/proto/billing_service.proto
 @host=localhost:9000
-
 ###
 
 GRPC /BillingService/createBillingAccount
@@ -11,3 +10,6 @@ GRPC /BillingService/createBillingAccount
     "address": "123 Main St, Springfield, USA",
     "phone": "+1234567890"
 }
+
+GRPC 0  - OK
+content-type: application/grpc

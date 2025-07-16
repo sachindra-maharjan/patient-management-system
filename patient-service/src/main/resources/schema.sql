@@ -19,7 +19,6 @@ CREATE TABLE IF NOT EXISTS patient (
 );
 
 CREATE INDEX IF NOT EXISTS idx_patient_email ON patient(email);
--- CREATE INDEX idx_patient_phone_number ON patient(phone_number);
 CREATE INDEX IF NOT EXISTS idx_patient_name ON patient(first_name, last_name);
 
 -- CREATE OR REPLACE FUNCTION update_updated_at_column()

@@ -3,9 +3,6 @@
 CURDIR=$(dirname "$0")
 WORKDIR=$(cd "$CURDIR/..")
 
-echo "Current:$CURDIR"
-echo "Work:$WORKDIR"
-
 cd billing-service
 docker build -t billing-service:latest .
 if [ $? -ne 0 ]; then

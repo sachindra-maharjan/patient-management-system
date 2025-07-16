@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package patient.events;
+option java_multiple_files = true;
+option java_outer_classname = "PatientEventProto";
+
+enum EventType {
+    CREATED = 0;
+    UPDATED = 1;
+    DELETED = 2;
+}
+
+message PatientEvent {
+    string patentId = 1;
+    string name = 2;
+    string email = 3;
+    string street = 4;
+    string city = 5;
+    string state = 6;
+    string zipCode = 7;
+    string country = 8;
+    google.protobuf.Timestamp created_at = 9;
+    google.protobuf.Timestamp updated_at = 10;
+    EventType event_type = 11;
+}
