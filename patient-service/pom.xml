@@ -193,7 +193,6 @@
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useOptional>false</useOptional>
 								<performBeanValidation>true</performBeanValidation>
-
 							</configOptions>
 						</configuration>
 					</execution>

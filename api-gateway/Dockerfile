@@ -18,8 +18,8 @@ FROM openjdk:21-jdk AS runner
 
 WORKDIR /app
 
-COPY --from=builder /app/target/patient-service-*.jar app.jar
+COPY --from=builder /app/target/api-gateway-*.jar app.jar
 
-EXPOSE 4000
+EXPOSE 4100
 
 ENTRYPOINT ["java", "-jar", "app.jar"]

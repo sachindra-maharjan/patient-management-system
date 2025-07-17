@@ -1,7 +1,7 @@
-DELETE http://localhost:4000/patients/8aa42b6d-94d3-4782-bf92-f7a6df5941cb
+DELETE http://localhost:4100/api/patients/b25c9c60-ddf0-4be7-8058-74c31fd65e55
 
 HTTP/1.1 204  - No Content
 x-status: success
-x-timestamp: 2025-07-16T10:57:26.832881537-04:00
-date: Wed, 16 Jul 2025 14:57:26 GMT
+x-timestamp: 2025-07-16T14:23:48.699233499-04:00
+date: Wed, 16 Jul 2025 18:23:48 GMT
 connection: close

@@ -5,7 +5,7 @@ services:
     container_name: patient-service
     image: patient-service:latest
     ports:
-      - "4000:4000"
+      - "4000:4000" # API is exposed through API Gateway only
     environment:
       JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
       SPRING_PROFILES_ACTIVE: docker
@@ -64,6 +64,20 @@ services:
       - internal
     depends_on:
       - kafka
+  
+  api-gateway:
+    container_name: api-gateway
+    image: api-gateway:latest
+    ports:
+      - "4100:4100"
+    networks:
+      - internal
+    depends_on:
+      - patient-service
+      - billing-service
+      - analytics-service
+      - notification-service
+
   kafka:
     container_name: kafka
     image: bitnami/kafka:latest

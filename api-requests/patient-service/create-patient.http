@@ -1,5 +1,5 @@
 // Create a new patient
-POST http://localhost:4000/patients
+POST http://localhost:4100/api/patients
 Content-Type: application/json
 
 {
@@ -23,8 +23,8 @@ Content-Type: application/json
 }
 
 HTTP/1.1 200  - OK
-content-type: application/json
 transfer-encoding: chunked
-date: Wed, 16 Jul 2025 15:25:31 GMT
+content-type: application/json
+date: Wed, 16 Jul 2025 18:22:09 GMT
 connection: close
 ###
