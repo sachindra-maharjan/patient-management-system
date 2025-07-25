@@ -32,7 +32,7 @@ services:
     networks:
       - internal
   patient-service-db:
-    container_name: postgres
+    container_name: patient-service-db
     image: postgres:latest
     ports:
       - "5432:5432"
@@ -65,6 +65,38 @@ services:
     depends_on:
       - kafka
   
+  auth-service:
+    container_name: auth-service
+    image: auth-service:latest
+    ports:
+      - "4005:4005"
+    depends_on:
+      - auth-service-db
+    networks:
+      - internal
+    environment:
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+      # SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_URL: jdbc:postgresql://auth-service-db:5432/authdb
+      SPRING_DATASOURCE_USERNAME: admin_user
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  auth-service-db:
+    container_name: auth-service-db
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: authdb
+    networks:
+      - internal
+    volumes:
+      - ./pgdata_auth:/var/lib/postgresql/data
+
   api-gateway:
     container_name: api-gateway
     image: api-gateway:latest

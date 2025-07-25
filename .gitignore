@@ -87,3 +87,4 @@ Thumbs.db
 
 # PostgreSQL data directory
 /pgdata/**
+/pgdata_auth/**
