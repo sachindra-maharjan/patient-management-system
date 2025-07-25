@@ -40,7 +40,7 @@ class BillingGrpcServiceTest {
 
         BillingResponse response = responseCaptor.getValue();
         assertEquals("12345", response.getAccountId());
-        assertEquals("Active", response.getStatus());
+        assertEquals("SUCCESS", response.getStatus());
         assertEquals("Billing account created successfully", response.getMessage());
     }
 } 
