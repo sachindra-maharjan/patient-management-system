@@ -1,0 +1,37 @@
+@layer components {
+  .badge {
+    @apply inline-flex items-center justify-center px-2.5 py-0.5 text-xs font-medium rounded-full;
+  }
+  
+  .badge-primary {
+    @apply bg-primary-500 text-white;
+  }
+  
+  .badge-secondary {
+    @apply bg-secondary-500 text-white;
+  }
+  
+  .badge-success {
+    @apply bg-success-500 text-white;
+  }
+  
+  .badge-danger {
+    @apply bg-danger-500 text-white;
+  }
+  
+  .badge-warning {
+    @apply bg-warning-500 text-white;
+  }
+  
+  .badge-info {
+    @apply bg-info-500 text-white;
+  }
+  
+  .badge-dark {
+    @apply bg-dark-500 text-white;
+  }
+  
+  .badge-light {
+    @apply bg-secondary-50/10 text-dark dark:text-white;
+  }
+} 

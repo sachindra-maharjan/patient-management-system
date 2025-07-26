@@ -1,0 +1,21 @@
+@layer components {
+  .breadcrumb {
+    @apply flex flex-wrap items-center text-sm;
+  }
+  
+  .breadcrumb-item {
+    @apply flex items-center;
+  }
+  
+  .breadcrumb-item:not(:last-child)::after {
+    @apply content-['/'] mx-2 text-theme-bodycolor dark:text-themedark-bodycolor;
+  }
+  
+  .breadcrumb-item.active {
+    @apply text-theme-headings dark:text-themedark-headings font-medium;
+  }
+  
+  .breadcrumb-item a {
+    @apply text-theme-bodycolor dark:text-themedark-bodycolor hover:text-primary-500 dark:hover:text-primary-500;
+  }
+} 

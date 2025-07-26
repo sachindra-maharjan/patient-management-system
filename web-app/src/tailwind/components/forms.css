@@ -1,0 +1,135 @@
+@layer components {
+  /* Form controls */
+  .form-control {
+    @apply block w-full px-3 py-2 text-base font-normal text-theme-bodycolor dark:text-themedark-bodycolor bg-theme-inputbg dark:bg-themedark-inputbg border border-theme-inputborder dark:border-themedark-inputborder rounded-lg transition-colors duration-200 ease-in-out;
+  }
+  
+  .form-control:focus {
+    @apply outline-none border-primary-500 dark:border-primary-500 ring-2 ring-primary-500/20 dark:ring-primary-500/20;
+  }
+  
+  .form-control:disabled {
+    @apply opacity-75 cursor-not-allowed;
+  }
+  
+  /* Form labels */
+  .form-label {
+    @apply block mb-2 text-sm font-medium text-theme-headings dark:text-themedark-headings;
+  }
+  
+  /* Form text */
+  .form-text {
+    @apply mt-1 text-sm text-theme-secondarytextcolor dark:text-themedark-secondarytextcolor;
+  }
+  
+  /* Form validation states */
+  .form-control.is-valid {
+    @apply border-success-500 dark:border-success-500;
+  }
+  
+  .form-control.is-invalid {
+    @apply border-danger-500 dark:border-danger-500;
+  }
+  
+  .valid-feedback {
+    @apply block w-full mt-1 text-sm text-success-500;
+  }
+  
+  .invalid-feedback {
+    @apply block w-full mt-1 text-sm text-danger-500;
+  }
+  
+  /* Checkboxes and radios */
+  .form-check {
+    @apply flex items-center;
+  }
+  
+  .form-check-input {
+    @apply w-4 h-4 text-primary-500 bg-theme-inputbg dark:bg-themedark-inputbg border-theme-inputborder dark:border-themedark-inputborder rounded focus:ring-primary-500/20 dark:focus:ring-primary-500/20;
+  }
+  
+  .form-check-input:checked {
+    @apply bg-primary-500 border-primary-500;
+  }
+  
+  .form-check-label {
+    @apply ml-2 text-sm text-theme-bodycolor dark:text-themedark-bodycolor;
+  }
+  
+  /* Select */
+  .form-select {
+    @apply block w-full px-3 py-2 text-base font-normal text-theme-bodycolor dark:text-themedark-bodycolor bg-theme-inputbg dark:bg-themedark-inputbg border border-theme-inputborder dark:border-themedark-inputborder rounded-lg appearance-none bg-no-repeat;
+    background-image: var(--bg-image-select-bg);
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+  }
+  
+  .dark .form-select {
+    background-image: var(--bg-image-select-bg-dark);
+  }
+  
+  .form-select:focus {
+    @apply outline-none border-primary-500 dark:border-primary-500 ring-2 ring-primary-500/20 dark:ring-primary-500/20;
+  }
+  
+  /* Textarea */
+  .form-textarea {
+    @apply block w-full px-3 py-2 text-base font-normal text-theme-bodycolor dark:text-themedark-bodycolor bg-theme-inputbg dark:bg-themedark-inputbg border border-theme-inputborder dark:border-themedark-inputborder rounded-lg resize-vertical;
+  }
+  
+  .form-textarea:focus {
+    @apply outline-none border-primary-500 dark:border-primary-500 ring-2 ring-primary-500/20 dark:ring-primary-500/20;
+  }
+  
+  /* Input groups */
+  .input-group {
+    @apply flex;
+  }
+  
+  .input-group-text {
+    @apply inline-flex items-center px-3 py-2 text-sm font-normal text-theme-bodycolor dark:text-themedark-bodycolor bg-theme-activebg dark:bg-themedark-activebg border border-theme-inputborder dark:border-themedark-inputborder;
+  }
+  
+  .input-group > .form-control:first-child {
+    @apply rounded-r-none;
+  }
+  
+  .input-group > .form-control:last-child {
+    @apply rounded-l-none;
+  }
+  
+  .input-group > .input-group-text:first-child {
+    @apply rounded-r-none;
+  }
+  
+  .input-group > .input-group-text:last-child {
+    @apply rounded-l-none;
+  }
+  
+  /* Form row */
+  .form-row {
+    @apply flex flex-wrap -mx-2;
+  }
+  
+  .form-row > * {
+    @apply px-2;
+  }
+  
+  /* Form floating labels */
+  .form-floating {
+    @apply relative;
+  }
+  
+  .form-floating > .form-control {
+    @apply h-12 pt-6 pb-2;
+  }
+  
+  .form-floating > .form-label {
+    @apply absolute top-0 left-0 h-full px-3 py-2 pointer-events-none transform origin-[0_0] transition-all duration-200 ease-in-out;
+  }
+  
+  .form-floating > .form-control:focus ~ .form-label,
+  .form-floating > .form-control:not(:placeholder-shown) ~ .form-label {
+    @apply scale-75 -translate-y-1;
+  }
+} 

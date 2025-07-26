@@ -1,0 +1,37 @@
+@layer components {
+  .simplebar-scrollbar {
+    @apply bg-theme-bodycolor/20 dark:bg-themedark-bodycolor/20 rounded-full;
+  }
+  
+  .simplebar-scrollbar:hover {
+    @apply bg-theme-bodycolor/40 dark:bg-themedark-bodycolor/40;
+  }
+  
+  .simplebar-scrollbar.simplebar-visible:before {
+    @apply opacity-100;
+  }
+  
+  .simplebar-track.simplebar-vertical {
+    @apply w-2 right-0;
+  }
+  
+  .simplebar-track.simplebar-horizontal {
+    @apply h-2 bottom-0;
+  }
+  
+  .simplebar-track.simplebar-horizontal .simplebar-scrollbar {
+    @apply h-full min-h-2;
+  }
+  
+  .simplebar-track.simplebar-vertical .simplebar-scrollbar {
+    @apply w-full min-w-2;
+  }
+  
+  .simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+    @apply absolute top-0 left-0 right-0 bottom-0 opacity-0 transition-opacity duration-200;
+  }
+  
+  .simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
+    @apply absolute top-0 left-0 right-0 bottom-0 opacity-0 transition-opacity duration-200;
+  }
+} 

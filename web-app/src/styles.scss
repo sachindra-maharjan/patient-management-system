@@ -1,2 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@import "./theme.css";
+
+/* Import component styles */
+@import "./tailwind/components/card.css";
+@import "./tailwind/components/typography.css";
+// @import "./tailwind/components/buttons.css";
+// @import "./tailwind/components/badge.css";
+@import "./tailwind/components/breadcrumb.css";
+@import "./tailwind/components/dropdown.css";
+// @import "./tailwind/components/forms.css";
+@import "./tailwind/components/table.css";
+@import "./tailwind/components/offcanvas.css";
+@import "./tailwind/components/simplebar.css";
+
+/* Import layout styles */
+@import "./tailwind/layouts/common.css";
+@import "./tailwind/layouts/header.css";
+@import "./tailwind/layouts/sidebar.css";
