@@ -215,3 +215,8 @@
     100%: { transform: translateZ(0) rotateY(0deg); opacity: 1 }
   };
 } 
+
+/* Dark mode support */
+[data-pc-theme="dart"] {
+  color-scheme: dark;
+}

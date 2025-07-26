@@ -1,37 +1,95 @@
-@layer components {
-  .badge {
-    @apply inline-flex items-center justify-center px-2.5 py-0.5 text-xs font-medium rounded-full;
-  }
-  
-  .badge-primary {
-    @apply bg-primary-500 text-white;
-  }
-  
-  .badge-secondary {
-    @apply bg-secondary-500 text-white;
-  }
-  
-  .badge-success {
-    @apply bg-success-500 text-white;
-  }
-  
-  .badge-danger {
-    @apply bg-danger-500 text-white;
-  }
-  
-  .badge-warning {
-    @apply bg-warning-500 text-white;
-  }
-  
-  .badge-info {
-    @apply bg-info-500 text-white;
-  }
-  
-  .badge-dark {
-    @apply bg-dark-500 text-white;
-  }
-  
-  .badge-light {
-    @apply bg-secondary-50/10 text-dark dark:text-white;
-  }
-} 
+/* Badge Component Styles */
+.badge {
+  @apply px-[0.8em] py-[0.45em] inline-block text-[.75em] leading-none font-medium rounded-md;
+}
+
+/* Badge color variants */
+.badge-primary {
+  @apply bg-primary-500 text-white;
+}
+
+.badge-secondary {
+  @apply bg-secondary-500 text-white;
+}
+
+.badge-success {
+  @apply bg-success-500 text-white;
+}
+
+.badge-danger {
+  @apply bg-danger-500 text-white;
+}
+
+.badge-warning {
+  @apply bg-warning-500 text-white;
+}
+
+.badge-info {
+  @apply bg-info-500 text-white;
+}
+
+.badge-dark {
+  @apply bg-dark-500 text-white;
+}
+
+.badge-light {
+  @apply bg-secondary-50 text-dark-500;
+}
+
+/* Badge outline variants */
+.badge-outline-primary {
+  @apply border border-primary-500 text-primary-500 bg-transparent;
+}
+
+.badge-outline-secondary {
+  @apply border border-secondary-500 text-secondary-500 bg-transparent;
+}
+
+.badge-outline-success {
+  @apply border border-success-500 text-success-500 bg-transparent;
+}
+
+.badge-outline-danger {
+  @apply border border-danger-500 text-danger-500 bg-transparent;
+}
+
+.badge-outline-warning {
+  @apply border border-warning-500 text-warning-500 bg-transparent;
+}
+
+.badge-outline-info {
+  @apply border border-info-500 text-info-500 bg-transparent;
+}
+
+.badge-outline-dark {
+  @apply border border-dark-500 text-dark-500 bg-transparent;
+}
+
+/* Badge light variants */
+.badge-light-primary {
+  @apply bg-primary-500/10 text-primary-500;
+}
+
+.badge-light-secondary {
+  @apply bg-secondary-500/10 text-secondary-500;
+}
+
+.badge-light-success {
+  @apply bg-success-500/10 text-success-500;
+}
+
+.badge-light-danger {
+  @apply bg-danger-500/10 text-danger-500;
+}
+
+.badge-light-warning {
+  @apply bg-warning-500/10 text-warning-500;
+}
+
+.badge-light-info {
+  @apply bg-info-500/10 text-info-500;
+}
+
+.badge-light-dark {
+  @apply bg-dark-500/10 text-dark-500;
+}

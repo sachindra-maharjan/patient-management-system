@@ -74,7 +74,7 @@
   
   /* Textarea */
   .form-textarea {
-    @apply block w-full px-3 py-2 text-base font-normal text-theme-bodycolor dark:text-themedark-bodycolor bg-theme-inputbg dark:bg-themedark-inputbg border border-theme-inputborder dark:border-themedark-inputborder rounded-lg resize-vertical;
+    @apply block w-full px-3 py-2 text-base font-normal text-theme-bodycolor dark:text-themedark-bodycolor bg-theme-inputbg dark:bg-themedark-inputbg border border-theme-inputborder dark:border-themedark-inputborder rounded-lg;
   }
   
   .form-textarea:focus {

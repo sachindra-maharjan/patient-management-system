@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 @layer components {
   .pc-header {
     @apply fixed ltr:right-0 rtl:left-0 ltr:max-lg:left-0 ltr:lg:left-sidebar-width rtl:max-lg:right-0 rtl:lg:right-sidebar-width flex h-header-height z-[1025] backdrop-blur-[7px] bg-theme-headerbg dark:bg-themedark-headerbg text-theme-headercolor dark:text-themedark-headercolor transition-all duration-200 ease-in-out;
