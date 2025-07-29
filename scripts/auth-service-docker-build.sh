@@ -14,3 +14,5 @@ elif [ -z "$(docker images -q auth-service:latest)" ]; then
 else
     echo "auth-service Docker image built successfully."  
 fi
+
+docker-compose up auth-service

@@ -1,0 +1,36 @@
+# @name session
+POST http://localhost:4005/login
+Content-Type: application/json
+
+{
+  "email": "admin@pms.com",
+  "password": "password123"
+}   
+
+HTTP/1.1 200  - OK
+x-content-type-options: nosniff
+x-xss-protection: 0
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+pragma: no-cache
+expires: 0
+x-frame-options: DENY
+content-type: application/json
+transfer-encoding: chunked
+date: Mon, 28 Jul 2025 20:11:48 GMT
+connection: close
+### 
+# @ref session
+GET http://localhost:4005/validate
+Authorization: Bearer {{session.token}}#
+
+HTTP/1.1 200  - OK
+x-content-type-options: nosniff
+x-xss-protection: 0
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+pragma: no-cache
+expires: 0
+x-frame-options: DENY
+content-type: application/json
+transfer-encoding: chunked
+date: Mon, 28 Jul 2025 20:18:05 GMT
+connection: close

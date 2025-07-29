@@ -1,4 +1,4 @@
-package com.sm.billing_service.grpc;
+package com.sm.billingservice.grpc;
 
 import billing.BillingRequest;
 import billing.BillingResponse;
@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+
+import com.sm.billingservice.grpc.BillingGrpcService;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

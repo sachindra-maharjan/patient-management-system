@@ -1,4 +1,4 @@
-package com.sm.billing_service;
+package com.sm.billingservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
