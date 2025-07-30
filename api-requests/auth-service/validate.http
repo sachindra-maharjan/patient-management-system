@@ -1,13 +1,2 @@
 GET http://localhost:4005/validate
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBwbXMuY29tIiwicm9sZXMiOiJBRE1JTiIsImlhdCI6MTc1MzczMzY1OSwiZXhwIjoxNzUzNzM3MjU5fQ.0zRoMRSfULTm2x42APU0myOCD1MYvhf0R66WKAlcrow
-
-HTTP/1.1 200  - OK
-x-content-type-options: nosniff
-x-xss-protection: 0
-cache-control: no-cache, no-store, max-age=0, must-revalidate
-pragma: no-cache
-expires: 0
-x-frame-options: DENY
-content-length: 0
-date: Mon, 28 Jul 2025 20:17:24 GMT
-connection: close

@@ -1,4 +1,5 @@
-# @name session
+###
+# @name json
 POST http://localhost:4005/login
 Content-Type: application/json
 
@@ -13,15 +14,15 @@ x-xss-protection: 0
 cache-control: no-cache, no-store, max-age=0, must-revalidate
 pragma: no-cache
 expires: 0
-x-frame-options: DENY
+x-frame-options: SAMEORIGIN
 content-type: application/json
 transfer-encoding: chunked
-date: Mon, 28 Jul 2025 20:11:48 GMT
+date: Wed, 30 Jul 2025 14:23:59 GMT
 connection: close
-### 
-# @ref session
+###
+# @ref json
 GET http://localhost:4005/validate
-Authorization: Bearer {{session.token}}#
+Authorization: Bearer {{json.token}}
 
 HTTP/1.1 200  - OK
 x-content-type-options: nosniff
@@ -29,8 +30,8 @@ x-xss-protection: 0
 cache-control: no-cache, no-store, max-age=0, must-revalidate
 pragma: no-cache
 expires: 0
-x-frame-options: DENY
+x-frame-options: SAMEORIGIN
 content-type: application/json
 transfer-encoding: chunked
-date: Mon, 28 Jul 2025 20:18:05 GMT
+date: Wed, 30 Jul 2025 14:08:13 GMT
 connection: close

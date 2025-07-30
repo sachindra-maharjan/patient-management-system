@@ -20,7 +20,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtil {
     
     private final Key secretKey;
-    private final long expiration;
+    private final long expiration; // in milliseconds
 
     public JwtUtil(@Value("${jwt.secret}") String secret, 
                    @Value("${jwt.expiration:3600000}") long expiration) {

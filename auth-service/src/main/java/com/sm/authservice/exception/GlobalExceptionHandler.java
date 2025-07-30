@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -45,6 +46,26 @@ public class GlobalExceptionHandler {
             "VALIDATION_ERROR",
             "Validation failed for one or more fields"
         ), fieldErrors);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleUserNotFoundException(UserNotFoundException ex) {
+        log.error("User not found: {}", ex.getMessage());
+        return createErrorResponse(new ErrorResponseBuilder(
+            HttpStatus.NOT_FOUND,
+            "NOT_FOUND",
+            "User not found"
+        ));
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponseDto> handleUserNotFoundException(BadCredentialsException ex) {
+        log.error("Bad credentials provided", ex.getMessage());
+        return createErrorResponse(new ErrorResponseBuilder(
+            HttpStatus.UNAUTHORIZED,
+            "BAD_CREDENTIALS",
+            "Login failed due to invalid credentials"
+        ));
     }
 
     @ExceptionHandler(JwtException.class)
