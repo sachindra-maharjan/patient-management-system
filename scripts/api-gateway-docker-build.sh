@@ -15,4 +15,4 @@ else
     echo "api-gateway docker image built successfully."
 fi
 
-# docker-compose -f $WORKDIR/docker-compose.yaml up -d
+ docker-compose up api-gateway -d

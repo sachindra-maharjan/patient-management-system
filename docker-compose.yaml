@@ -111,6 +111,7 @@ services:
       - billing-service
       - analytics-service
       - notification-service
+      - auth-service
 
   kafka:
     container_name: kafka

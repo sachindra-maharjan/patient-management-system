@@ -1,2 +1,14 @@
 GET http://localhost:4005/validate
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBwbXMuY29tIiwicm9sZXMiOiJBRE1JTiIsImlhdCI6MTc1MzczMzY1OSwiZXhwIjoxNzUzNzM3MjU5fQ.0zRoMRSfULTm2x42APU0myOCD1MYvhf0R66WKAlcrow
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBwbXMuY29tIiwicm9sZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNzUzODg0MjI2LCJleHAiOjE3NTM4ODc4MjZ9.7B3noIkEqc9SCAxwNCBA-Od6A8-O5nmMiz78Jzhazz8
+
+HTTP/1.1 200  - OK
+x-content-type-options: nosniff
+x-xss-protection: 0
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+pragma: no-cache
+expires: 0
+x-frame-options: SAMEORIGIN
+content-type: application/json
+transfer-encoding: chunked
+date: Wed, 30 Jul 2025 14:07:39 GMT
+connection: close

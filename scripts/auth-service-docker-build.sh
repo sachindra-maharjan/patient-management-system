@@ -15,4 +15,4 @@ else
     echo "auth-service Docker image built successfully."  
 fi
 
-docker-compose up auth-service
+docker-compose up auth-service -d
