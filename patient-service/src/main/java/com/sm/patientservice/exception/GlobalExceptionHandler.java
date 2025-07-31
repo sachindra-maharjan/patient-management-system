@@ -2,8 +2,10 @@ package com.sm.patientservice.exception;
 
 import java.util.function.Consumer;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -103,6 +105,14 @@ public class GlobalExceptionHandler {
             error.setMessage(ex.getMessage());
             error.setCode("BILLING_ERROR");
         }, 500);
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ValidationErrorResponse> handleAccessDeniedException(AuthorizationDeniedException ex) {
+        return buildErrorResponse(error -> {
+            error.setMessage(ex.getMessage());
+            error.setCode("FORBIDDEN");
+        }, HttpStatus.FORBIDDEN.value());
     }
 
     /**

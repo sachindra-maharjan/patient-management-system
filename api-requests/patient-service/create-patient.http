@@ -1,4 +1,21 @@
+###
+# @name json
+POST http://localhost:4100/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@pms.com",
+  "password": "password123"
+}  
+
+HTTP/1.1 200  - OK
+transfer-encoding: chunked
+content-type: application/json
+date: Wed, 16 Jul 2025 18:22:09 GMT
+connection: close
+###
 // Create a new patient
+# @ref json
 POST http://localhost:4100/api/patients
 Content-Type: application/json
 
@@ -21,10 +38,3 @@ Content-Type: application/json
     "policyNumber": "RRV2222244"
   }
 }
-
-HTTP/1.1 200  - OK
-transfer-encoding: chunked
-content-type: application/json
-date: Wed, 16 Jul 2025 18:22:09 GMT
-connection: close
-###

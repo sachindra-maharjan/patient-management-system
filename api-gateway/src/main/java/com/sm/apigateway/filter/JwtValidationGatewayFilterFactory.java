@@ -4,11 +4,14 @@ package com.sm.apigateway.filter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
 
 import com.sm.apigateway.client.AuthServiceClient;
 
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
 
 @Component
 @Slf4j
@@ -18,6 +21,15 @@ public class JwtValidationGatewayFilterFactory extends AbstractGatewayFilterFact
 
   public JwtValidationGatewayFilterFactory(AuthServiceClient authServiceClient) {
     this.authServiceClient = authServiceClient;
+  }
+
+  private Mono<Void> handleUnauthorized(ServerWebExchange exchange) {
+    exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+    return exchange.getResponse().setComplete();
+  }
+
+  private boolean isValidAuthHeader(String authHeader) {
+    return authHeader != null && authHeader.startsWith("Bearer ");
   }
 
   /**
@@ -32,7 +44,6 @@ public class JwtValidationGatewayFilterFactory extends AbstractGatewayFilterFact
    */
   @Override
   public GatewayFilter apply(Object config) {
-
     return (exchange, chain) -> {
       // Strip all X- headers from the incoming request
       var headers = exchange.getRequest().getHeaders();
@@ -45,32 +56,29 @@ public class JwtValidationGatewayFilterFactory extends AbstractGatewayFilterFact
       });
       
       String jwtToken = headers.getFirst("Authorization");
-
-      if (jwtToken == null || !jwtToken.startsWith("Bearer ")) {
-        return exchange.getResponse().setComplete();
+      if (!isValidAuthHeader(jwtToken)) {
+        return handleUnauthorized(exchange);
       }
-      
+
       return authServiceClient.validateToken(jwtToken)
           .flatMap(response -> {
             log.debug("JWT Validation Response: {}", response);
             if(response.valid()) {
               // Add validated user information in new headers
               mutatedRequest
-                  .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwtToken)
-                  .header("X-User-Email", response.email())
-                  .header("X-User-Roles", String.join(",", response.roles()));
+                  .header(HttpHeaders.AUTHORIZATION, jwtToken)  // Keep original token
+                  .header("X-AUTH-USER-EMAIL", response.email())
+                  .header("X-AUTH-USER-ROLES", String.join(",", response.roles()));
               
               // Create new exchange with cleaned headers
-              var newExchange = exchange.mutate()
+              return chain.filter(
+                exchange.mutate()
                   .request(mutatedRequest.build())
-                  .build();
-              
-              return chain.filter(newExchange);
-            } else {
-              return exchange.getResponse().setComplete();
-            }
+                  .build()
+              );
+            } 
+            return handleUnauthorized(exchange);
         });  
     };
-  
   }
 }

@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class JwtValidationException {
   
-  @ExceptionHandler(WebClientResponseException.class)
+  @ExceptionHandler(WebClientResponseException.Unauthorized.class)
   public Mono<Void> handleJwtValidationException(ServerWebExchange exchange) {
     log.error("JWT validation failed: {}", exchange.getResponse().getStatusCode());
     exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);

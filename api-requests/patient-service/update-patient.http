@@ -1,5 +1,7 @@
 // Create a new patient
+# @ ref json
 PUT http://localhost:4100/api/patients/b25c9c60-ddf0-4be7-8058-74c31fd65e55
+Authorization: Bearer {{json.token}}
 Content-Type: application/json
 
 {
