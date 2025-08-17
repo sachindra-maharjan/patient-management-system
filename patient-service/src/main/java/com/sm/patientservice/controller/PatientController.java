@@ -3,6 +3,7 @@ package com.sm.patientservice.controller;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sm.patientservice.api.PatientsApi;
@@ -27,6 +28,7 @@ public class PatientController implements PatientsApi{
     }
     
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PatientResponseWrapper> createPatient(@Valid PatientCreateRequest patientCreateRequest) {
         var patient = patientService.createPatient(patientCreateRequest);
         var responseWrapper = new PatientResponseWrapper()
@@ -58,6 +60,7 @@ public class PatientController implements PatientsApi{
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PatientResponseWrapper> updatePatient(UUID id,
             @Valid PatientCreateRequest patientCreateRequest) {
         return ResponseEntity.ok(
@@ -69,6 +72,7 @@ public class PatientController implements PatientsApi{
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deletePatient(UUID id) {
         patientService.deletePatient(id);
         return ResponseEntity.noContent()

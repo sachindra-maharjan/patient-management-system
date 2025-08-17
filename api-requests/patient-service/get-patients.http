@@ -1,9 +1,39 @@
-// Get all patients
-GET http://localhost:4100/api/patients?name=John&page=0&size=5
+###
+# @name json
+POST http://localhost:4100/auth/login
 Content-Type: application/json
+
+{
+  "email": "admin@pms.com",
+  "password": "password123"
+}   
 
 HTTP/1.1 200  - OK
 transfer-encoding: chunked
+x-content-type-options: nosniff
+x-xss-protection: 0
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+pragma: no-cache
+expires: 0
+x-frame-options: SAMEORIGIN
 content-type: application/json
-date: Wed, 16 Jul 2025 18:23:27 GMT
+date: Sat, 02 Aug 2025 16:44:12 GMT
+connection: close
+###
+// Get all patients
+# @ref json
+GET http://localhost:4100/api/patients?name=John&page=0&size=5
+Content-Type: application/json  
+Authorization: Bearer {{json.token}}
+
+HTTP/1.1 200  - OK
+transfer-encoding: chunked
+x-content-type-options: nosniff
+x-xss-protection: 0
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+pragma: no-cache
+expires: 0
+x-frame-options: DENY
+content-type: application/json
+date: Sat, 02 Aug 2025 16:44:29 GMT
 connection: close

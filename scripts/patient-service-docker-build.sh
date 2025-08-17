@@ -15,4 +15,4 @@ else
     echo "Patient service Docker image built successfully."  
 fi
 
-#docker-compose -f $WORKDIR/docker-compose.yaml up -d
+docker-compose up patient-service -d
