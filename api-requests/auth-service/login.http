@@ -1,6 +1,6 @@
 ###
 # @name json
-POST http://localhost:4100/login
+POST http://localhost:4100/auth/login
 Content-Type: application/json
 
 {
@@ -8,30 +8,18 @@ Content-Type: application/json
   "password": "password123"
 }   
 
-HTTP/1.1 200  - OK
-transfer-encoding: chunked
-x-content-type-options: nosniff
-x-xss-protection: 0
-cache-control: no-cache, no-store, max-age=0, must-revalidate
-pragma: no-cache
-expires: 0
-x-frame-options: DENY
-content-type: application/json
-date: Wed, 30 Jul 2025 18:45:04 GMT
-connection: close
+
+
+POST http://lb-fec88e33.elb.localhost.localstack.cloud:4100/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@pms.com",
+  "password": "password123"
+}   
+
 ###
 # @ref json
-GET http://localhost:4100/validate
+GET http://localhost:4100/auth/validate
 Authorization: Bearer {{json.token}}
 
-HTTP/1.1 200  - OK
-transfer-encoding: chunked
-x-content-type-options: nosniff
-x-xss-protection: 0
-cache-control: no-cache, no-store, max-age=0, must-revalidate
-pragma: no-cache
-expires: 0
-x-frame-options: DENY
-content-type: application/json
-date: Wed, 30 Jul 2025 18:45:08 GMT
-connection: close
