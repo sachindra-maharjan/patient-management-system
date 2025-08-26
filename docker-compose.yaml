@@ -42,8 +42,8 @@ services:
       POSTGRES_DB: patientdb
     networks:
       - internal
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
+    # volumes:
+    #   - ./pgdata:/var/lib/postgresql/data
 
   analytics-service:
     container_name: analytics-service
@@ -96,8 +96,8 @@ services:
       POSTGRES_DB: authdb
     networks:
       - internal
-    volumes:
-      - ./pgdata_auth:/var/lib/postgresql/data
+    # volumes:
+    #   - ./pgdata_auth:/var/lib/postgresql/data
 
   api-gateway:
     container_name: api-gateway
@@ -134,5 +134,5 @@ networks:
   internal:
     driver: bridge
 
-volumes:
-  pgdata:
+# volumes:
+#   pgdata:

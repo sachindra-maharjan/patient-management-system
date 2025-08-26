@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,9 +48,12 @@ public class AuthController {
     @Operation(summary = "User login", description = "Authenticate user and return JWT token")
     @PostMapping("/login")
     public ResponseEntity<JwtResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequest) {
-        
+
         // Authenticate user credentials with Spring Security's AuthenticationManager
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password()));
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                loginRequest.email(), 
+                loginRequest.password()));
 
         /** 
          * Set the authentication object in SecurityContextHolder for the current request context (optional but good practice) 

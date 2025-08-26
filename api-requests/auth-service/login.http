@@ -9,8 +9,9 @@ Content-Type: application/json
 }   
 
 
-
-POST http://lb-fec88e33.elb.localhost.localstack.cloud:4100/auth/login
+###
+# @name json
+POST http://lb-931fa6a2.elb.localhost.localstack.cloud:4100/auth/login
 Content-Type: application/json
 
 {
@@ -23,3 +24,7 @@ Content-Type: application/json
 GET http://localhost:4100/auth/validate
 Authorization: Bearer {{json.token}}
 
+###
+# @ref json
+GET http://llb-931fa6a2.elb.localhost.localstack.cloud:4100/auth/validate
+Authorization: Bearer {{json.token}}

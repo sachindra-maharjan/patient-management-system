@@ -9,6 +9,16 @@ Content-Type: application/json
 }  
 
 ###
+# @name json
+POST http://llb-931fa6a2.elb.localhost.localstack.cloud:4100/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@pms.com",
+  "password": "password123"
+}  
+
+###
 // Create a new patient
 # @ref json
 POST http://localhost:4100/api/patients
@@ -19,6 +29,32 @@ Authorization: Bearer {{json.token}}
   "lastName": "Rooney",
   "dob": "1991-01-15",
   "email": "wayne.rooneyForKafka5@email.com",
+  "phoneNumber": "555-0101",
+  "gender": "MALE",
+  "address": {
+    "street": "123 Main St",
+    "city": "New York",
+    "state": "NY",
+    "zipCode": "10001",
+    "country": "USA"
+  },
+  "insurance": {
+    "provider": "Blue Cross",
+    "policyNumber": "RRV2222244"
+  }
+}
+
+###
+// Create a new patient
+# @ref json
+POST http://llb-931fa6a2.elb.localhost.localstack.cloud:4100/api/patients
+Content-Type: application/json
+Authorization: Bearer {{json.token}}
+{
+  "firstName": "Wayne",
+  "lastName": "Rooney",
+  "dob": "1991-01-15",
+  "email": "wayne.rooneyForKafka6@email.com",
   "phoneNumber": "555-0101",
   "gender": "MALE",
   "address": {
