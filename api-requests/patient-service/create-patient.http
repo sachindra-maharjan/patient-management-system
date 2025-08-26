@@ -18,7 +18,7 @@ Content-Type: application/json
   "password": "password123"
 }  
 
-###
+###∏
 // Create a new patient
 # @ref json
 POST http://localhost:4100/api/patients
